@@ -10,7 +10,7 @@ VALUES (
   now()
 )
 ON CONFLICT (id) DO UPDATE SET
-  password_hash = EXCLUDED.password_hash,
-  salt = EXCLUDED.salt,
-  iterations = EXCLUDED.iterations,
+  password_hash = INCLUDED.password_hash,
+  salt = INCLUDED.salt,
+  iterations = INCLUDED.iterations,
   updated_at = now();
