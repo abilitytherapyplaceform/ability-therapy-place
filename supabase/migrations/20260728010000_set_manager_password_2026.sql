@@ -1,6 +1,3 @@
--- Updates the manager account password to Ability@2026.
--- Generated with the same pbkdf2 (sha256, 120000 iterations, 32-byte key) scheme
--- used by src/routes/api/public/manager/unlock.ts, so the app can verify it as-is.
 INSERT INTO public.manager_credential (id, password_hash, salt, iterations, updated_at)
 VALUES (
   1,
@@ -10,7 +7,7 @@ VALUES (
   now()
 )
 ON CONFLICT (id) DO UPDATE SET
-  password_hash = INCLUDED.password_hash,
-  salt = INCLUDED.salt,
-  iterations = INCLUDED.iterations,
+  password_hash = EXCLUDED.password_hash,
+  salt = EXCLUDED.salt,
+  iterations = EXCLUDED.iterations,
   updated_at = now();
